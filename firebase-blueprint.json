@@ -1,0 +1,190 @@
+{
+  "entities": {
+    "AdminMember": {
+      "title": "AdminMember",
+      "description": "Authorizes an administrator UID for Master Control Portal access.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Admin Firebase Auth UID." },
+        "email": { "type": "string", "description": "Verified admin email address." },
+        "role": { "type": "string", "enum": ["FOUNDER", "MODERATOR"] },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp." }
+      },
+      "required": ["uid", "email", "role", "createdAt", "updatedAt"]
+    },
+    "AdminPortalConfig": {
+      "title": "AdminPortalConfig",
+      "description": "Stores master admin portal login email/ID, registered recovery email, and SHA-256 passcode hash for secret admin verification and recovery.",
+      "type": "object",
+      "properties": {
+        "adminEmail": { "type": "string", "description": "Admin Portal identifier email." },
+        "recoveryEmail": { "type": "string", "description": "Registered recovery email verified against Firebase Auth for credential resets." },
+        "passcodeHash": { "type": "string", "description": "SHA-256 hash of the admin portal passcode." },
+        "recoveryHint": { "type": "string", "description": "Optional recovery hint visible only to verified admins." },
+        "updatedByUid": { "type": "string", "description": "UID of admin who last updated portal credentials." },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["adminEmail", "recoveryEmail", "passcodeHash", "updatedByUid", "createdAt", "updatedAt"]
+    },
+    "AdminRecoveryLog": {
+      "title": "AdminRecoveryLog",
+      "description": "Immutable Firebase audit log for admin portal recovery verification and credential reset events.",
+      "type": "object",
+      "properties": {
+        "adminUid": { "type": "string" },
+        "recoveryEmail": { "type": "string" },
+        "eventType": { "type": "string", "enum": ["PORTAL_INITIALIZED", "RECOVERY_VERIFIED", "PASSWORD_RESET"] },
+        "note": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["adminUid", "recoveryEmail", "eventType", "note", "createdAt"]
+    },
+    "PlatformConfig": {
+      "title": "PlatformConfig",
+      "description": "Live arena announcement banner, Admin UPI payment details, and support links.",
+      "type": "object",
+      "properties": {
+        "announcementText": { "type": "string" },
+        "adminUpiId": { "type": "string" },
+        "adminUpiName": { "type": "string" },
+        "whatsappSupportUrl": { "type": "string" },
+        "youtubeUrl": { "type": "string" },
+        "instagramUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["announcementText", "adminUpiId", "adminUpiName", "whatsappSupportUrl", "youtubeUrl", "instagramUrl", "createdAt", "updatedAt"]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Player profile with BGMI IGN/UID and wallet balances.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "bgmiIgn": { "type": "string" },
+        "bgmiUid": { "type": "string" },
+        "depositBalance": { "type": "integer" },
+        "winningBalance": { "type": "integer" },
+        "matchesPlayed": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "displayName", "email", "phone", "bgmiIgn", "bgmiUid", "depositBalance", "winningBalance", "matchesPlayed", "createdAt", "updatedAt"]
+    },
+    "Tournament": {
+      "title": "Tournament",
+      "description": "BGMI custom room tournament supporting 25-slot Squad (100p), 50-slot Duo (100p), and 100-slot Solo (100p).",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "mapName": { "type": "string" },
+        "mode": { "type": "string", "enum": ["SQUAD", "DUO", "SOLO"] },
+        "maxSlots": { "type": "integer" },
+        "playersPerSlot": { "type": "integer" },
+        "bookedSlotNumbers": { "type": "array" },
+        "entryFee": { "type": "integer" },
+        "prizePool": { "type": "integer" },
+        "perKillPrize": { "type": "integer" },
+        "startTimeMillis": { "type": "integer" },
+        "status": { "type": "string", "enum": ["UPCOMING", "LIVE", "COMPLETED"] },
+        "roomPublished": { "type": "boolean" },
+        "roomForceVisible": { "type": "boolean" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "mapName", "mode", "maxSlots", "playersPerSlot", "bookedSlotNumbers", "entryFee", "prizePool", "perKillPrize", "startTimeMillis", "status", "roomPublished", "roomForceVisible", "createdBy", "createdAt", "updatedAt"]
+    },
+    "RoomAccess": {
+      "title": "RoomAccess",
+      "description": "Protected custom room ID & password readable only by registered participants or admins.",
+      "type": "object",
+      "properties": {
+        "roomId": { "type": "string" },
+        "roomPassword": { "type": "string" },
+        "roomPublished": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["roomId", "roomPassword", "roomPublished", "createdAt", "updatedAt"]
+    },
+    "TournamentRegistration": {
+      "title": "TournamentRegistration",
+      "description": "Slot registration storing team name, assigned slot #1-#25/#50/#100, and verified 4-player IGN/UID roster.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "tournamentId": { "type": "string" },
+        "slotNumber": { "type": "integer" },
+        "teamName": { "type": "string" },
+        "playerIgns": { "type": "array" },
+        "playerUids": { "type": "array" },
+        "entryFeePaid": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "tournamentId", "slotNumber", "teamName", "playerIgns", "playerUids", "entryFeePaid", "createdAt", "updatedAt"]
+    },
+    "WalletTransaction": {
+      "title": "WalletTransaction",
+      "description": "UPI deposit, withdrawal, entry fee, and prize payout ledger record.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "type": { "type": "string", "enum": ["DEPOSIT", "WITHDRAWAL", "ENTRY_FEE", "PRIZE"] },
+        "amount": { "type": "integer" },
+        "status": { "type": "string", "enum": ["PENDING", "APPROVED", "REJECTED"] },
+        "utrNumber": { "type": "string" },
+        "upiId": { "type": "string" },
+        "note": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "userName", "type", "amount", "status", "note", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/admins/{uid}": {
+      "schema": { "$ref": "#/entities/AdminMember" },
+      "description": "Admin membership documents."
+    },
+    "/adminConfig/{configId}": {
+      "schema": { "$ref": "#/entities/AdminPortalConfig" },
+      "description": "Secret Master Control Portal credentials (restricted to verified admins)."
+    },
+    "/adminRecoveryLogs/{logId}": {
+      "schema": { "$ref": "#/entities/AdminRecoveryLog" },
+      "description": "Immutable audit trail for admin recovery email verification and password resets."
+    },
+    "/platformConfig/{configId}": {
+      "schema": { "$ref": "#/entities/PlatformConfig" },
+      "description": "Live banner, Admin UPI details, and support links."
+    },
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Player profiles and wallet balances."
+    },
+    "/tournaments/{tournamentId}": {
+      "schema": { "$ref": "#/entities/Tournament" },
+      "description": "Custom BGMI tournament lobbies."
+    },
+    "/tournaments/{tournamentId}/roomAccess/{docId}": {
+      "schema": { "$ref": "#/entities/RoomAccess" },
+      "description": "Protected Room ID and Password."
+    },
+    "/tournaments/{tournamentId}/registrations/{registrationId}": {
+      "schema": { "$ref": "#/entities/TournamentRegistration" },
+      "description": "Slot registrations with IGN/UID rosters."
+    },
+    "/walletTransactions/{txId}": {
+      "schema": { "$ref": "#/entities/WalletTransaction" },
+      "description": "Wallet deposits, withdrawals, entry fees, and prize payouts."
+    }
+  }
+}

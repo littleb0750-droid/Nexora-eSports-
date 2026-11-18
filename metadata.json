@@ -1,0 +1,6 @@
+{
+  "name": "Naxora eSports",
+  "description": "Naxora eSports is an official custom room arena and match-hosting platform founded by Amreshwar Maravi—built to organize structured 25-slot (100-player) custom lobbies, verify squad IGN/UID rosters, broadcast live Room IDs & Passwords, and process instant UPI prize pool payouts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Naxora eSports</string>
+    <string name="founder_name">Amreshwar Maravi</string>
+    <string name="platform_description">Naxora eSports is an official custom room arena and match-hosting platform founded by Amreshwar Maravi—built to organize structured 25-slot (100-player) custom lobbies, verify squad IGN/UID rosters, broadcast live Room IDs &amp; Passwords, and process instant UPI prize pool payouts.</string>
+    <string name="login_title">Naxora</string>
+    <string name="login_subtitle">Log in to enter the arena</string>
+    <string name="signup_subtitle">Create your fighter profile</string>
+    <string name="admin_portal_title">Naxora Admin</string>
+    <string name="admin_portal_subtitle">Master Control Portal</string>
+</resources>
